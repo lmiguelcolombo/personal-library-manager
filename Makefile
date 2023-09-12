@@ -33,6 +33,10 @@ key:
 	@docker-compose exec app php artisan key:generate
 .PHONY:key
 
+migrate:
+	@docker-compose exec app php artisan migrate
+.PHONY:migrate
+
 laravel-init:
 	@docker-compose exec app composer create-project laravel/laravel $(PROJECT_NAME)
 .PHONY: laravel-init
