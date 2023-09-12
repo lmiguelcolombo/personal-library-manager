@@ -40,3 +40,27 @@ migrate:
 laravel-init:
 	@docker-compose exec app composer create-project laravel/laravel $(PROJECT_NAME)
 .PHONY: laravel-init
+
+create-model:
+	@docker-compose exec app php artisan make:model $(MODEL_NAME)
+.PHONY: create-model
+
+create-model-with-migration:
+	@docker-compose exec app php artisan make:model $(MODEL_NAME) -m
+.PHONY: create-model
+
+create-migration:
+	@docker-compose exec app php artisan make:migration $(MIGRATION_NAME)
+.PHONY: create-migration
+
+create-event:
+	@docker-compose exec app php artisan make:event $(EVENT_NAME)
+.PHONY: create-event
+
+create-controller:
+	@docker-compose exec app php artisan make:controller $(CONTROLLER_NAME)
+.PHONY: create-controller
+
+create-request:
+	@docker-compose exec app php artisan make:request $(REQUEST_NAME)
+.PHONY: create-request
