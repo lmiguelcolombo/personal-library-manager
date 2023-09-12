@@ -34,6 +34,18 @@ services:
     networks:
       - net_personal_library_manager
 
+  nginx:
+    image: nginx:alpine
+    container_name: personal_library_manager_nginx
+    restart: unless-stopped
+    ports:
+      - 9000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - net_personal_library_manager
+
 networks:
   net_personal_library_manager:
     driver: bridge
