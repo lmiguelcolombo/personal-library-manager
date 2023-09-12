@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -13,7 +14,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Auth::user()->books()->paginate(10);
+
+        return view('books.index', compact('books'));
     }
 
     /**
