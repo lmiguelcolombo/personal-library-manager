@@ -22,4 +22,14 @@ class Book extends Model
         'publish_year',
         'publisher',
     ];
+
+    public function collection()
+    {
+        $this->belongsToMany(Collection::class, 'user_book_collection', 'book_id', 'collection_id');
+    }
+
+    // public function user()
+    // {
+    //     $this->belongsTo(User::class);
+    // }
 }
