@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use App\Models\UserBookCollection;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
@@ -14,7 +15,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Auth::user()->books()->paginate(10);
+        $books = Auth::user()->books;
 
         return view('books.index', compact('books'));
     }
@@ -24,7 +25,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $collections = Auth::user()->collections;
+
+        return view('books.create', compact('collections'));
     }
 
     /**
@@ -32,7 +35,11 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $book = Book::create($validated);
+        $this->assignBookToTheUserAndTheCollection(Auth::user(), $book, $request->collection);
+
+        return redirect()->route('books.index')->with('success', 'Book created successfully!');
     }
 
     /**
@@ -48,7 +55,9 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        $collections = Auth::user()->collections;
+
+        return view('books.edit', compact('book', 'collections'));
     }
 
     /**
@@ -56,7 +65,10 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $validated = $request->validated();
+        $book->update($validated);
+
+        return redirect()->route('books.index')->with('success', 'Book updated successfully!');
     }
 
     /**
@@ -64,6 +76,18 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        UserBookCollection::where('book_id', '=', $book->id)->delete();
+        $book->delete();
+
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully!');
+    }
+
+    private function assignBookToTheUserAndTheCollection($user, $book, $collection)
+    {
+        UserBookCollection::create([
+            'user_id' => $user->id,
+            'book_id' => $book->id,
+            'collection_id' => $collection,
+        ]);
     }
 }
