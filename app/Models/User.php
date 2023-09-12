@@ -45,11 +45,15 @@ class User extends Authenticatable
 
     public function books()
     {
-        $this->belongsToMany(Book::class, 'user_book_collection', 'user_id', 'book_id');
+        $books = $this->belongsToMany(Book::class, 'user_book_collection', 'user_id', 'book_id');
+        $books->distinct();
+        return $books;
     }
 
     public function collections()
     {
-        $this->belongsToMany(Collection::class, 'user_book_collection', 'user_id', 'collection_id');
+        $collections = $this->belongsToMany(Collection::class, 'user_book_collection', 'user_id', 'collection_id');
+        $collections->distinct();
+        return $collections;
     }
 }
