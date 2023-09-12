@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: sammy
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: personal_library_manager
+    container_name: personal_library_manager_app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - net_personal_library_manager
+
+networks:
+  net_personal_library_manager:
+    driver: bridge
