@@ -18,4 +18,14 @@ class Collection extends Model
         'name',
         'description',
     ];
+
+    public function books()
+    {
+        $this->belongsToMany(Book::class, 'user_book_collection', 'collection_id', 'book_id');
+    }
+
+    // public function user()
+    // {
+    //     $this->belongsTo(User::class);
+    // }
 }
