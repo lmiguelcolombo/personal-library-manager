@@ -10,7 +10,7 @@ class UserBookCollection extends Model
     use HasFactory;
 
     protected $table = 'user_book_collection';
-    protected $timestamps = false;
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.

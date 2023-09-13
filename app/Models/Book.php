@@ -25,7 +25,9 @@ class Book extends Model
 
     public function collection()
     {
-        $this->belongsToMany(Collection::class, 'user_book_collection', 'book_id', 'collection_id');
+        $collection = $this->belongsToMany(Collection::class, 'user_book_collection', 'book_id', 'collection_id');
+
+        return $collection;
     }
 
     // public function user()

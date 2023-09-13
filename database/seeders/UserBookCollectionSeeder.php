@@ -24,7 +24,7 @@ class UserBookCollectionSeeder extends Seeder
             UserBookCollection::create([
                 'user_id' => $user->id,
                 'book_id' => $booksId,
-                'library_id' => $collectionsId,
+                'collection_id' => $collectionsId,
             ]);
 
             $booksId = rand(1, 10);
@@ -33,7 +33,7 @@ class UserBookCollectionSeeder extends Seeder
             UserBookCollection::create([
                 'user_id' => $user->id,
                 'book_id' => $booksId,
-                'library_id' => $collectionsId,
+                'collection_id' => $collectionsId,
             ]);
         }
     }
