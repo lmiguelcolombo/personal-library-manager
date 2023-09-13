@@ -23,7 +23,7 @@ class BookFactory extends Factory
             'subject' => fake()->name(),
             'authors' => fake()->name(),
             'edition' => fake()->randomNumber(4),
-            'publish_year' => fake()->randomNumber(),
+            'publish_year' => fake()->year(),
             'publisher' => fake()->name(),
             'collection_id' => rand(1, $collections->count()),
         ];
