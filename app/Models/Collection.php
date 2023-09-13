@@ -17,6 +17,7 @@ class Collection extends Model
     protected $fillable = [
         'name',
         'description',
+        'user_id',
     ];
 
     public function books()
@@ -26,8 +27,8 @@ class Collection extends Model
         return $books;
     }
 
-    // public function user()
-    // {
-    //     $this->belongsTo(User::class);
-    // }
+    public function user()
+    {
+        $this->belongsTo(User::class, 'user_id', 'collection_id');
+    }
 }

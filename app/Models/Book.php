@@ -21,17 +21,13 @@ class Book extends Model
         'edition',
         'publish_year',
         'publisher',
+        'collection_id',
     ];
 
     public function collection()
     {
-        $collection = $this->belongsToMany(Collection::class, 'user_book_collection', 'book_id', 'collection_id');
+        $collection = $this->belongsTo(Collection::class, 'collection_id', 'book_id');
 
         return $collection;
     }
-
-    // public function user()
-    // {
-    //     $this->belongsTo(User::class);
-    // }
 }
