@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +17,11 @@ class CollectionFactory extends Factory
      */
     public function definition(): array
     {
+        $users = User::all()->pluck('id');
         return [
             'name' => fake()->name(),
             'description' => fake()->text(),
+            'user_id' => rand(1, $users->count()),
         ];
     }
 
