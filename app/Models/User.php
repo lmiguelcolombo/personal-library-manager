@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function collections()
     {
-        $collections = $this->belongsToMany(Collection::class, 'user_book_collection', 'user_id', 'collection_id');
+        $collections = $this->hasMany(Collection::class);
         $collections->distinct();
         return $collections;
     }
