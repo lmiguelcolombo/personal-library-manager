@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,6 +17,7 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
+        $collections = Collection::all()->pluck('id');
         return [
             'title' => fake()->name(),
             'subject' => fake()->name(),
@@ -23,6 +25,7 @@ class BookFactory extends Factory
             'edition' => fake()->randomNumber(4),
             'publish_year' => fake()->randomNumber(),
             'publisher' => fake()->name(),
+            'collection_id' => rand(1, $collections->count()),
         ];
     }
 
