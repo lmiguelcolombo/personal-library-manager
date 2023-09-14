@@ -1,8 +1,15 @@
 <x-app-layout>
   <div class="flex flex-col m-3">
-    <div class="flex justify-between mb-4">
-      <h1 class="text-3xl">{{ __('My Books') }}</h1>
-      <a href="{{route('books.create')}}" role="button" class="text-white font-bold rounded-lg p-3 bg-sky-500">{{ __('Create a new book') }}</a>
+    <div class="flex justify-between items-center mx-5 mb-5">
+      <div class="flex flex-col">
+        <label for="collection" class="text-xl">{{ __('Collection') }}</label>
+        <select name="collection" id="collection" class="">
+          @foreach ($collections as $collection)
+          <option value="{{ $collection->id }}">{{ $collection->name }}</option>
+          @endforeach
+        </select>
+      </div>
+      <a href="{{route('books.create')}}" role="button" class="text-white font-bold rounded-lg p-3 bg-sky-500 h-fit">{{ __('Create a new book') }}</a>
     </div>
 
     @if (Session::has('success'))
