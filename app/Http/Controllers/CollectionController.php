@@ -31,7 +31,10 @@ class CollectionController extends Controller
      */
     public function store(StoreCollectionRequest $request)
     {
-        //
+        $validated = $request->validated();
+        Collection::create($validated);
+
+        return redirect()->route('collections.index')->with('success', 'Collection created successfully!');
     }
 
     /**
