@@ -13,7 +13,9 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        //
+        $collections = Auth::user()->collections;
+
+        return view('collections.index', compact('collections'));
     }
 
     /**
