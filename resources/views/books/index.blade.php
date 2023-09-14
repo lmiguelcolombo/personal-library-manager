@@ -30,6 +30,7 @@
           <th class="border border-slate-700 bg-gray-300">{{ __('Actions') }}</th>
       </tr>
       </thead>
+      <tbody id="books">
       @foreach ($books as $book)
       <tbody>
         <tr class="">
