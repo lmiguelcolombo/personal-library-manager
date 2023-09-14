@@ -50,7 +50,7 @@ class CollectionController extends Controller
      */
     public function edit(Collection $collection)
     {
-        //
+        return view('collections.edit', compact('collection'));
     }
 
     /**
