@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCollectionRequest;
 use App\Http\Requests\UpdateCollectionRequest;
 use App\Models\Collection;
+use App\Models\UserBookCollection;
+use Illuminate\Support\Facades\Auth;
 
 class CollectionController extends Controller
 {
