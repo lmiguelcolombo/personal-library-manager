@@ -26,8 +26,9 @@ class UpdateBookRequest extends FormRequest
             'subject' => 'required|string|min:1|max:255',
             'authors' => 'required|string|min:1|max:255',
             'edition' => 'required|integer|min:1',
-            'publish_year' => 'required|integer|min:1',
+            'publish_year' => 'required|integer|min:1|max_digits:4',
             'publisher' => 'required|string|min:1|max:255',
+            'collection_id' => 'required|integer|min:1',
         ];
     }
 }
