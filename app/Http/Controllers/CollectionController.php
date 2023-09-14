@@ -58,7 +58,10 @@ class CollectionController extends Controller
      */
     public function update(UpdateCollectionRequest $request, Collection $collection)
     {
-        //
+        $validated = $request->validated();
+        $collection->update($validated);
+
+        return redirect()->route('collections.index')->with('success', 'Collection updated successfully!');
     }
 
     /**
