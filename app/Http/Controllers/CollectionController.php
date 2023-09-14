@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCollectionRequest;
 use App\Http\Requests\UpdateCollectionRequest;
 use App\Models\Collection;
+use App\Models\UserBookCollection;
+use Illuminate\Support\Facades\Auth;
 
 class CollectionController extends Controller
 {
@@ -13,7 +15,9 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        //
+        $collections = Auth::user()->collections;
+
+        return view('collections.index', compact('collections'));
     }
 
     /**
@@ -21,7 +25,7 @@ class CollectionController extends Controller
      */
     public function create()
     {
-        //
+        return view('collections.create');
     }
 
     /**
@@ -29,7 +33,10 @@ class CollectionController extends Controller
      */
     public function store(StoreCollectionRequest $request)
     {
-        //
+        $validated = $request->validated();
+        Collection::create($validated);
+
+        return redirect()->route('collections.index')->with('success', 'Collection created successfully!');
     }
 
     /**
@@ -45,7 +52,7 @@ class CollectionController extends Controller
      */
     public function edit(Collection $collection)
     {
-        //
+        return view('collections.edit', compact('collection'));
     }
 
     /**
@@ -53,7 +60,10 @@ class CollectionController extends Controller
      */
     public function update(UpdateCollectionRequest $request, Collection $collection)
     {
-        //
+        $validated = $request->validated();
+        $collection->update($validated);
+
+        return redirect()->route('collections.index')->with('success', 'Collection updated successfully!');
     }
 
     /**
@@ -61,6 +71,9 @@ class CollectionController extends Controller
      */
     public function destroy(Collection $collection)
     {
-        //
+        UserBookCollection::where('collection_id', '=', $collection->id)->delete();
+        $collection->delete();
+
+        return redirect()->route('collections.index')->with('success', 'Collection deleted successfully!');
     }
 }

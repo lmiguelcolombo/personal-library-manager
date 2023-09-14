@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreCollectionRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreCollectionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,9 @@ class StoreCollectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|unique:collections,name|string|min:1|max:255',
+            'description' => 'required|string|min:1|max:255',
+            'user_id' => 'required|integer|min:1',
         ];
     }
 }
