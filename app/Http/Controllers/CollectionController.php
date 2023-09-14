@@ -69,6 +69,9 @@ class CollectionController extends Controller
      */
     public function destroy(Collection $collection)
     {
-        //
+        UserBookCollection::where('collection_id', '=', $collection->id)->delete();
+        $collection->delete();
+
+        return redirect()->route('collections.index')->with('success', 'Collection deleted successfully!');
     }
 }
