@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use App\Models\Collection;
 use App\Models\UserBookCollection;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +16,28 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Auth::user()->books;
+        $collections = Auth::user()->collections;
+        $idOfSelectedCollection = $collections->first()->id;
+        session(['selected_collection' => $idOfSelectedCollection]);
 
-        return view('books.index', compact('books'));
+        $selectedCollection = Collection::findOrFail($idOfSelectedCollection);
+        $books = $selectedCollection->books;
+
+
+        return view('books.index', compact('books', 'collections'));
+    }
+
+    /**
+     * Getting books from a collection selected and communicating with the API route created.
+     */
+    public function books(string $collection_id)
+    {
+        $collection = Collection::findOrFail($collection_id);
+        $books = $collection->books();
+
+        return response()->json([
+            'books' => $books->get(),
+        ]);
     }
 
     /**
