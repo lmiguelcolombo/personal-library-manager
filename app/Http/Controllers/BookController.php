@@ -28,6 +28,19 @@ class BookController extends Controller
     }
 
     /**
+     * Getting books from a collection selected and communicating with the API route created.
+     */
+    public function books(string $collection_id)
+    {
+        $collection = Collection::findOrFail($collection_id);
+        $books = $collection->books();
+
+        return response()->json([
+            'books' => $books->get(),
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
