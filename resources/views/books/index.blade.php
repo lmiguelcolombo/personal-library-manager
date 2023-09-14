@@ -18,6 +18,46 @@
     </div>
     @endif
 
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#collection').change(function() {
+          var idCollection = this.value;
+          console.log(idCollection);
+          $('#books').html('');
+
+          $.ajax({
+            url: `/api/books/${idCollection}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+              console.log(response.books);
+              $.each(response.books, function(index, val) {
+                console.log(val);
+                $('#books').append(`
+                  <tr value="${val.id}">
+                    <td class="border border-slate-700 text-center">${val.title}</td>
+                    <td class="border border-slate-700 text-center">${val.subject}</td>
+                    <td class="border border-slate-700 text-center">${val.authors}</td>
+                    <td class="border border-slate-700 text-center">${val.edition}</td>
+                    <td class="border border-slate-700 text-center">${val.publish_year}</td>
+                    <td class="border border-slate-700 text-center">${val.publisher}</td>
+                    <td class="flex justify-center gap-3 border border-slate-700">
+                      <a href="/books/${val.id}/edit" class="text-white rounded-lg bg-amber-400 py-3 px-5" role="button">{{ __('Edit') }}</a>
+                      <form class="border-0" type="button" method="POST" action="/books/${val.id}" onsubmit="return confirm('Are you sure to delete this book?')">
+                        @csrf
+                        @method('DELETE')
+                        <button class="text-white rounded-lg bg-red-500 p-3">{{ __('Delete') }}</button>
+                      </form>
+                    </td>
+                  </tr>
+                `);
+              })
+            }
+          })
+        })
+      });
+    </script>
+
     <table class="table-auto border">
       <tr>
         <thead>
