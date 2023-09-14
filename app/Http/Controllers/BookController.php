@@ -37,7 +37,7 @@ class BookController extends Controller
     {
         $validated = $request->validated();
         $book = Book::create($validated);
-        $this->assignBookToTheUserAndTheCollection(Auth::user(), $book, $request->collection);
+        $this->assignBookToTheUserAndTheCollection(Auth::user(), $book, $request->collection_id);
 
         return redirect()->route('books.index')->with('success', 'Book created successfully!');
     }
