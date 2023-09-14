@@ -31,8 +31,7 @@
       </tr>
       </thead>
       <tbody id="books">
-      @foreach ($books as $book)
-      <tbody>
+        @foreach ($books as $book)
         <tr class="">
           <td class="border border-slate-700 text-center">{{ $book->title }}</td>
           <td class="border border-slate-700 text-center">{{ $book->subject }}</td>
@@ -49,8 +48,8 @@
             </form>
           </td>
         </tr>
+        @endforeach
       </tbody>
-      @endforeach
     </table>
   </div>
 
